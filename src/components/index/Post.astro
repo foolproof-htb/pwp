@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import FormattedDate from '../FormattedDate.astro';
 import type { CollectionEntry } from 'astro:content';
+import Tags from '../Tags.astro';
 
 type Props = {
   post: CollectionEntry<'post'>;
@@ -32,6 +33,7 @@ const { post } = Astro.props;
         <FormattedDate date={post.data.pubDate} />
       </p>
       <h3 class="title">{post.data.title}</h3>
+      <Tags tags={post.data.tags} />
     </div>
   </div>
 </a>

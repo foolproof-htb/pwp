@@ -6,6 +6,7 @@ import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import Tags from '../../components/Tags.astro';
 
 const posts = (await getCollection('post')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -102,6 +103,7 @@ const posts = (await getCollection('post')).sort(
                   <p class="date">
                     <FormattedDate date={post.data.pubDate} />
                   </p>
+                  <Tags tags={post.data.tags} />
                 </a>
               </li>
             ))
