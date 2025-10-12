@@ -17,6 +17,19 @@ const post = defineCollection({
     }),
 });
 
+const impression = defineCollection({
+  loader: glob({ base: './src/content/impression', pattern: '**/*.{md,mdx}' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string().default(''),
+      tags: z.array(z.string()),
+      pubDate: z.coerce.date(),
+      updatedDate: z.coerce.date().optional(),
+      heroImage: image().optional(),
+    }),
+});
+
 const about = defineCollection({
   loader: glob({ base: './src/content/about', pattern: '**/*.{md,mdx}' }),
   schema: z.object({
@@ -25,4 +38,4 @@ const about = defineCollection({
   }),
 });
 
-export const collections = { post, about };
+export const collections = { post, impression, about };
