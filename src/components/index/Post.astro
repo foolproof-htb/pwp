@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import FormattedDate from '../FormattedDate.astro';
 import type { CollectionEntry } from 'astro:content';
 import Tags from '../Tags.astro';
+import defaultHeroImage from '../../assets/default-hero-image.jpg';
 
 type Props = {
   post: CollectionEntry<'post'>;
@@ -14,18 +15,14 @@ const { post } = Astro.props;
 <a href={`/post/${post.id}`}>
   <div class="post-row">
     <div class="thumbnail">
-      {
-        post.data.heroImage && (
-          <Image
-            class="thumbnail-image"
-            src={post.data.heroImage}
-            alt=""
-            width={320}
-            height={213}
-            sizes="(max-width: 600px) 96px, 160px"
-          />
-        )
-      }
+      <Image
+        class="thumbnail-image"
+        src={post.data.heroImage ?? defaultHeroImage}
+        alt=""
+        width={320}
+        height={213}
+        sizes="(max-width: 600px) 96px, 160px"
+      />
     </div>
 
     <div class="content">
