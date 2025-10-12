@@ -28,9 +28,12 @@ const today = new Date();
 <style>
   footer {
     padding: 2em 1em 6em 1em;
-    background: linear-gradient(var(--gray-gradient)) no-repeat;
-    color: rgb(var(--gray));
+    background:
+      radial-gradient(140% 120% at 50% 0%, rgba(var(--surface-soft), 0.9), transparent 70%),
+      linear-gradient(180deg, rgba(var(--surface), 1) 0%, rgba(var(--surface-strong), 0.6) 80%);
+    color: rgba(var(--gray), 0.9);
     text-align: center;
+    border-top: 1px solid rgba(var(--gray-light), 0.8);
   }
   .social-links {
     display: flex;
@@ -40,9 +43,10 @@ const today = new Date();
   }
   .social-links a {
     text-decoration: none;
-    color: rgb(var(--gray));
+    color: rgba(var(--gray), 0.8);
+    transition: color 200ms ease;
   }
   .social-links a:hover {
-    color: rgb(var(--gray-dark));
+    color: var(--accent-dark);
   }
 </style>
