@@ -1,0 +1,20 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import ImpressionPage from '../../layouts/ImpressionPage.astro';
+
+export async function getStaticPaths() {
+  const impressions = await getCollection('impression');
+  return impressions.map((impression) => ({
+    params: { slug: impression.id },
+    props: impression,
+  }));
+}
+type Props = CollectionEntry<'impression'>;
+
+const impression = Astro.props;
+const { Content } = await render(impression);
+---
+
+<ImpressionPage {...impression.data}>
+  <Content />
+</ImpressionPage>
