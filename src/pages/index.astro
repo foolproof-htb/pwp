@@ -27,6 +27,7 @@ const latestPosts = (await getCollection('post'))
       <ul>
         {latestPosts.map((post) => <Post post={post} />)}
       </ul>
+      <a href="/post">その他の記事を読む</a>
     </main>
     <Footer />
   </body>
