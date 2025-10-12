@@ -6,18 +6,19 @@ import Tags from '../Tags.astro';
 import defaultHeroImage from '../../assets/default-hero-image.jpg';
 
 type Props = {
-  post: CollectionEntry<'post'>;
+  content: CollectionEntry<'post' | 'impression'>;
 };
 
-const { post } = Astro.props;
+const { content } = Astro.props;
+const baseUrl = content.collection === 'impression' ? 'impression' : 'post';
 ---
 
-<a href={`/post/${post.id}`}>
+<a href={`/${baseUrl}/${content.id}`}>
   <div class="post-row">
     <div class="thumbnail">
       <Image
         class="thumbnail-image"
-        src={post.data.heroImage ?? defaultHeroImage}
+        src={content.data.heroImage ?? defaultHeroImage}
         alt=""
         width={320}
         height={213}
@@ -27,10 +28,10 @@ const { post } = Astro.props;
 
     <div class="content">
       <p class="date">
-        <FormattedDate date={post.data.pubDate} />
+        <FormattedDate date={content.data.pubDate} />
       </p>
-      <h3 class="title">{post.data.title}</h3>
-      <Tags tags={post.data.tags} />
+      <h3 class="title">{content.data.title}</h3>
+      <Tags tags={content.data.tags} />
     </div>
   </div>
 </a>
