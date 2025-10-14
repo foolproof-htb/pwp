@@ -2,9 +2,11 @@
 import { getCollection } from 'astro:content';
 import ContentIndex from '../../layouts/ContentIndex.astro';
 
-const posts = (await getCollection('post')).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const posts = (
+  await getCollection('post', ({ data }) => {
+    return data.isDraft === false;
+  })
+).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <ContentIndex contents={posts} description="なんか考えたこととかを記事にまとめてます。" />

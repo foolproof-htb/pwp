@@ -2,9 +2,11 @@
 import { getCollection } from 'astro:content';
 import ContentIndex from '../../layouts/ContentIndex.astro';
 
-const impressions = (await getCollection('impression')).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const impressions = (
+  await getCollection('impression', ({ data }) => {
+    return data.isDraft === false;
+  })
+).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <ContentIndex contents={impressions} description="触れたコンテンツの感想とかを書いてます。" />

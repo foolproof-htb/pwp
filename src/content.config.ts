@@ -14,6 +14,7 @@ const post = defineCollection({
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
       heroImage: image().optional(),
+      isDraft: z.boolean().default(false),
     }),
 });
 
@@ -27,6 +28,7 @@ const impression = defineCollection({
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
       heroImage: image().optional(),
+      isDraft: z.boolean().default(false),
     }),
 });
 
