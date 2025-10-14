@@ -14,7 +14,7 @@ type Props = {
   description: string;
 };
 const { contents, description } = Astro.props;
-const baseUrl = contents[0].collection === 'impression' ? 'impression' : 'post';
+const baseUrl = contents[0]?.collection === 'impression' ? 'impression' : 'post';
 ---
 
 <!doctype html>
