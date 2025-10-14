@@ -1,0 +1,16 @@
+---
+import { getEntry, render } from 'astro:content';
+import AboutPage from '../layouts/AboutPage.astro';
+
+const introduction = await getEntry('about', 'detailed_introduction');
+
+if (!introduction) {
+  throw new Error('`about/detailed_introduction.md` が見つかりません。');
+}
+
+const { Content } = await render(introduction);
+---
+
+<AboutPage {...introduction.data}>
+  <Content />
+</AboutPage>
