@@ -1,9 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 128 128">
-    <path d="M50.4 78.5a75.1 75.1 0 0 0-28.5 6.9l24.2-65.7c.7-2 1.9-3.2 3.4-3.2h29c1.5 0 2.7 1.2 3.4 3.2l24.2 65.7s-11.6-7-28.5-7L67 45.5c-.4-1.7-1.6-2.8-2.9-2.8-1.3 0-2.5 1.1-2.9 2.7L50.4 78.5Zm-1.1 28.2Zm-4.2-20.2c-2 6.6-.6 15.8 4.2 20.2a17.5 17.5 0 0 1 .2-.7 5.5 5.5 0 0 1 5.7-4.5c2.8.1 4.3 1.5 4.7 4.7.2 1.1.2 2.3.2 3.5v.4c0 2.7.7 5.2 2.2 7.4a13 13 0 0 0 5.7 4.9v-.3l-.2-.3c-1.8-5.6-.5-9.5 4.4-12.8l1.5-1a73 73 0 0 0 3.2-2.2 16 16 0 0 0 6.8-11.4c.3-2 .1-4-.6-6l-.8.6-1.6 1a37 37 0 0 1-22.4 2.7c-5-.7-9.7-2-13.2-6.2Z" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="pwp-icon-title">
+    <title id="pwp-icon-title">PWP ロゴアイコン</title>
+    <defs>
+        <linearGradient id="bg-light" x1="24" y1="18" x2="108" y2="114" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#71cfa0" />
+            <stop offset="1" stop-color="#2e7a54" />
+        </linearGradient>
+        <linearGradient id="bg-dark" x1="20" y1="14" x2="110" y2="118" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#1b3f2d" />
+            <stop offset="1" stop-color="#55b487" />
+        </linearGradient>
+        <linearGradient id="spark-light" x1="44" y1="40" x2="92" y2="88" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#ffffff" stop-opacity="0.8" />
+            <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="spark-dark" x1="40" y1="36" x2="94" y2="84" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#d6f2e2" stop-opacity="0.78" />
+            <stop offset="1" stop-color="#d6f2e2" stop-opacity="0" />
+        </linearGradient>
+    </defs>
+    <rect class="bg bg--light" x="12" y="12" width="104" height="104" rx="28" fill="url(#bg-light)" />
+    <rect class="bg bg--dark" x="12" y="12" width="104" height="104" rx="28" fill="url(#bg-dark)" />
+    <path class="glyph glyph--outer" d="M49 36h26c17 0 27 9.8 27 24.5S92 85 75 85H61v19H49Z" fill="#ffffff" />
+    <path class="glyph glyph--inner" d="M61 48h12c9.3 0 14 4.7 14 12.5S82.3 73 73 73H61Z" fill="#2e7a54" />
+    <path class="spark spark--light" d="M86 38c6.2 7.7 9.5 17.2 9.5 27.2 0 14.6-10.6 29-24.6 34.2 12.3-4.5 22.3-16.6 25.4-31.8Z" fill="url(#spark-light)" />
+    <path class="spark spark--dark" d="M88 36c6.5 7.8 9.9 17.4 9.9 27.5 0 15-10.8 29.7-25.6 35.1 13.2-4.6 23.4-17 26.6-32.4Z" fill="url(#spark-dark)" />
     <style>
-        path { fill: #000; }
+        .bg--dark,
+        .spark--dark {
+            display: none;
+        }
+
+        .glyph--inner {
+            opacity: 0.14;
+        }
+
         @media (prefers-color-scheme: dark) {
-            path { fill: #FFF; }
+            .bg--light,
+            .spark--light {
+                display: none;
+            }
+
+            .bg--dark,
+            .spark--dark {
+                display: block;
+            }
+
+            .glyph--outer {
+                fill: #0d1f15;
+            }
+
+            .glyph--inner {
+                fill: rgba(240, 252, 245, 0.38);
+                opacity: 0.32;
+            }
         }
     </style>
 </svg>
