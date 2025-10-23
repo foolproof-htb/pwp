@@ -6,11 +6,19 @@ import Content from '../components/index/Content.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { getCollection } from 'astro:content';
 
-const latestPosts = (await getCollection('post'))
+const latestPosts = (
+  await getCollection('post', ({ data }) => {
+    return data.isDraft === false;
+  })
+)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 
-const latestImpressions = (await getCollection('impression'))
+const latestImpressions = (
+  await getCollection('impression', ({ data }) => {
+    return data.isDraft === false;
+  })
+)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 ---
