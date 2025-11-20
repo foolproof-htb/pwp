@@ -22,7 +22,7 @@ export type Blog = {
     height: number;
     alt?: string;
   };
-  tag?: BlogTag[];
+  tags?: BlogTag[];
 } & MicroCMSListContent;
 
 // APIの呼び出し
