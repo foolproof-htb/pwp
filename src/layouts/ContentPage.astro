@@ -72,5 +72,14 @@ const date = publishedAt ?? updatedAt;
       </article>
     </main>
     <Footer />
+    <script lang="ts">
+      // microCMS側で .spoiler が付与されている場合、クリックで表示・非表示を切り替える
+      document.addEventListener('click', (event) => {
+        const spoiler = event.target.closest('.spoiler');
+        if (spoiler) {
+          document.body.classList.toggle('spoiler-revealed');
+        }
+      });
+    </script>
   </body>
 </html>
