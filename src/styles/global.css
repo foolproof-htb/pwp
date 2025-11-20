@@ -63,19 +63,19 @@ h6 {
   letter-spacing: -0.01em;
 }
 h1 {
-  font-size: 3.052em;
+  font-size: 2.5em;
 }
 h2 {
-  font-size: 2.441em;
+  font-size: 2em;
 }
 h3 {
-  font-size: 1.953em;
+  font-size: 1.5em;
 }
 h4 {
-  font-size: 1.563em;
+  font-size: 1.25em;
 }
 h5 {
-  font-size: 1.25em;
+  font-size: 1em;
 }
 strong,
 b {
@@ -95,6 +95,35 @@ p {
 }
 .prose p {
   margin-bottom: 2em;
+}
+.blog-content figcaption {
+  display: block;
+  font-size: 0.6em;
+  color: #777;
+  text-align: center;
+  margin-top: 0.25em;
+}
+/* microCMS側で .caption が付与される想定 */
+.blog-content .caption {
+  font-size: 0.75em;
+  color: #f90;
+  text-align: center;
+  margin-top: 0.5em;
+  line-height: 1.4;
+}
+.blog-content img {
+  border-radius: 0%;
+}
+/* microCMS側で .spoiler が付与される想定 */
+.blog-content .spoiler {
+  color: transparent;
+  background: #444;
+  border-radius: 2px;
+  cursor: pointer;
+}
+body.spoiler-revealed .spoiler {
+  color: inherit;
+  background: transparent;
 }
 textarea {
   width: 100%;

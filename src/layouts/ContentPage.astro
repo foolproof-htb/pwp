@@ -1,22 +1,21 @@
 ---
-import { Image } from 'astro:assets';
-import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import Tags from '../components/Tags.astro';
-import defaultHeroImage from '../assets/default-hero-image.jpg';
+import type { Blog } from '../library/microcms';
+import HeroImage from '../components/HeroImage.astro';
 
-type Props = CollectionEntry<'post'>['data'];
+type Props = Blog;
 
-const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.props;
-const fallbackHeroImage = heroImage ?? defaultHeroImage;
+const { title, publishedAt, updatedAt, heroImage, tags } = Astro.props;
+const date = publishedAt ?? updatedAt;
 ---
 
 <html lang="ja">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={title} />
     <style>
       main {
         width: calc(100% - 2em);
@@ -25,12 +24,7 @@ const fallbackHeroImage = heroImage ?? defaultHeroImage;
       }
       .hero-image {
         width: 100%;
-      }
-      .hero-image img {
-        display: block;
-        margin: 0 auto;
-        border-radius: 12px;
-        box-shadow: var(--box-shadow);
+        height: 510px;
       }
       .prose {
         width: 720px;
@@ -42,7 +36,6 @@ const fallbackHeroImage = heroImage ?? defaultHeroImage;
       .title {
         margin-bottom: 1em;
         padding: 1em 0;
-        text-align: center;
         line-height: 1;
       }
       .title h1 {
@@ -51,9 +44,7 @@ const fallbackHeroImage = heroImage ?? defaultHeroImage;
       .date {
         margin-bottom: 0.5em;
         color: rgb(var(--gray));
-      }
-      .last-updated-on {
-        font-style: italic;
+        text-align: right;
       }
     </style>
   </head>
@@ -63,28 +54,32 @@ const fallbackHeroImage = heroImage ?? defaultHeroImage;
     <main>
       <article>
         <div class="hero-image">
-          <Image width={1020} height={510} src={fallbackHeroImage} alt="" />
+          <HeroImage heroImage={heroImage} imageType="blog" />
         </div>
         <div class="prose">
           <div class="title">
             <div class="date">
-              <FormattedDate date={pubDate} />
-              {
-                updatedDate && (
-                  <div class="last-updated-on">
-                    Last updated on <FormattedDate date={updatedDate} />
-                  </div>
-                )
-              }
+              投稿日：<FormattedDate date={date} />
             </div>
             <h1>{title}</h1>
             <Tags tags={tags} />
             <hr />
           </div>
-          <slot />
+          <div class="blog-content">
+            <slot />
+          </div>
         </div>
       </article>
     </main>
     <Footer />
+    <script lang="ts">
+      // microCMS側で .spoiler が付与されている場合、クリックで表示・非表示を切り替える
+      document.addEventListener('click', (event) => {
+        const spoiler = event.target.closest('.spoiler');
+        if (spoiler) {
+          document.body.classList.toggle('spoiler-revealed');
+        }
+      });
+    </script>
   </body>
 </html>

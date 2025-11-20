@@ -4,23 +4,18 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import Content from '../components/index/Content.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-import { getCollection } from 'astro:content';
+import { getBlogs } from '../library/microcms';
 
-const latestPosts = (
-  await getCollection('post', ({ data }) => {
-    return data.isDraft === false;
-  })
-)
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
+const baseParams = {
+  fields: ['id', 'title', 'publishedAt', 'heroImage', 'tags', 'category'],
+  limit: 3,
+  orders: '-publishedAt',
+};
+const postRes = await getBlogs({ ...baseParams, filters: 'category[contains]post' });
+const latestBlogs = postRes.contents;
 
-const latestImpressions = (
-  await getCollection('impression', ({ data }) => {
-    return data.isDraft === false;
-  })
-)
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
+const impressionRes = await getBlogs({ ...baseParams, filters: 'category[contains]impression' });
+const latestImpressions = impressionRes.contents;
 ---
 
 <!doctype html>
@@ -38,16 +33,16 @@ const latestImpressions = (
       <div class="latest-posts">
         <h2>直近の記事</h2>
         <ul>
-          {latestPosts.map((post) => <Content content={post} />)}
+          {latestBlogs.map((post) => <Content content={post} />)}
         </ul>
-        <a href="/post">その他の記事を読む</a>
+        <a href="/posts">その他の記事を読む</a>
       </div>
       <div class="latest-impressions">
         <h2>直近の感想</h2>
         <ul>
           {latestImpressions.map((impression) => <Content content={impression} />)}
         </ul>
-        <a href="/impression">その他の感想を読む</a>
+        <a href="/impressions">その他の感想を読む</a>
       </div>
     </main>
     <Footer />

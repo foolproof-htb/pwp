@@ -1,0 +1,40 @@
+---
+import type { Blog } from '../library/microcms';
+import { Image } from 'astro:assets';
+import defaultHeroImage from '../assets/default-hero-image.jpg';
+
+type Props = {
+  heroImage: Blog['heroImage'];
+  imageType: 'blog' | 'thumbnail';
+};
+
+const { heroImage, imageType } = Astro.props;
+const url = heroImage?.url;
+const alt = heroImage?.alt ?? 'Hero Image';
+const className = imageType === 'thumbnail' ? 'thumbnail-img' : 'hero-image-img';
+---
+
+{
+  heroImage ? (
+    <img class={className} src={url} alt={alt} loading="lazy" decoding="async" />
+  ) : (
+    <Image class={className} src={defaultHeroImage} alt={alt} />
+  )
+}
+<style>
+  .thumbnail-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero-image-img {
+    display: block;
+    margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: var(--box-shadow);
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+  }
+</style>

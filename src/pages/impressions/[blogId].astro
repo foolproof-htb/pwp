@@ -1,0 +1,21 @@
+---
+import ContentPage from '../../layouts/ContentPage.astro';
+import { getBlogDetail, getBlogs } from '../../library/microcms';
+
+export async function getStaticPaths() {
+  const impressions = await getBlogs({
+    fields: ['id'],
+    filters: 'category[contains]impression',
+  });
+  return impressions.contents.map((impression) => ({
+    params: { blogId: impression.id },
+  }));
+}
+
+const impressionId = Astro.params.blogId;
+const impression = await getBlogDetail(impressionId);
+---
+
+<ContentPage {...impression}>
+  <div set:html={impression.content} />
+</ContentPage>
