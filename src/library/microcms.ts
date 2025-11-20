@@ -15,7 +15,7 @@ export type BlogTag = {
 export type Blog = {
   title: string;
   content: string;
-  category: 'post' | 'impression';
+  category: ['post'] | ['impression'];
   heroImage?: {
     url: string;
     width: number;
