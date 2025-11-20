@@ -65,7 +65,9 @@ const date = publishedAt ?? updatedAt;
             <Tags tags={tags} />
             <hr />
           </div>
-          <slot />
+          <div class="blog-content">
+            <slot />
+          </div>
         </div>
       </article>
     </main>

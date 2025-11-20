@@ -96,6 +96,24 @@ p {
 .prose p {
   margin-bottom: 2em;
 }
+.blog-content figcaption {
+  display: block;
+  font-size: 0.6em;
+  color: #777;
+  text-align: center;
+  margin-top: 0.25em;
+}
+/* microCMS側で .caption が付与される想定 */
+.blog-content .caption {
+  font-size: 0.75em;
+  color: #f90;
+  text-align: center;
+  margin-top: 0.5em;
+  line-height: 1.4;
+}
+.blog-content img {
+  border-radius: 0%;
+}
 textarea {
   width: 100%;
   font-size: 16px;

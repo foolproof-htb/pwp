@@ -21,6 +21,7 @@ export type Blog = {
     width: number;
     height: number;
     alt?: string;
+    caption?: string; // 出典
   };
   tags?: BlogTag[];
 } & MicroCMSListContent;
