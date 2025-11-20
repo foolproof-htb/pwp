@@ -35,14 +35,14 @@ const latestImpressions = impressionRes.contents;
         <ul>
           {latestBlogs.map((post) => <Content content={post} />)}
         </ul>
-        <a href="/post">その他の記事を読む</a>
+        <a href="/posts">その他の記事を読む</a>
       </div>
       <div class="latest-impressions">
         <h2>直近の感想</h2>
         <ul>
           {latestImpressions.map((impression) => <Content content={impression} />)}
         </ul>
-        <a href="/impression">その他の感想を読む</a>
+        <a href="/impressions">その他の感想を読む</a>
       </div>
     </main>
     <Footer />
