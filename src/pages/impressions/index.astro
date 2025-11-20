@@ -1,0 +1,15 @@
+---
+import ContentIndex from '../../layouts/ContentIndex.astro';
+import { getBlogs } from '../../library/microcms';
+
+const impressions = await getBlogs({
+  filters: 'category[contains]impression',
+  fields: ['id', 'title', 'publishedAt', 'heroImage', 'tags', 'category'],
+  orders: '-publishedAt',
+});
+---
+
+<ContentIndex
+  contents={impressions.contents}
+  description="触れたコンテンツの感想とかを書いてます。"
+/>

@@ -1,20 +1,19 @@
 ---
-import { Image } from 'astro:assets';
-import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import Tags from '../components/Tags.astro';
-import defaultHeroImage from '../assets/default-hero-image.jpg';
+import type { Blog } from '../library/microcms';
+import HeroImage from '../components/HeroImage.astro';
 
 type Props = {
-  contents: CollectionEntry<'post' | 'impression'>[];
+  contents: Blog[];
   description: string;
 };
 const { contents, description } = Astro.props;
-const baseUrl = contents[0]?.collection === 'impression' ? 'impression' : 'post';
+const baseUrl = contents[0]?.category[0] === 'impression' ? 'impressions' : 'posts';
 ---
 
 <!doctype html>
@@ -101,17 +100,12 @@ const baseUrl = contents[0]?.collection === 'impression' ? 'impression' : 'post'
             contents.map((content) => (
               <li>
                 <a href={`/${baseUrl}/${content.id}/`}>
-                  <Image
-                    width={720}
-                    height={360}
-                    src={content.data.heroImage ?? defaultHeroImage}
-                    alt=""
-                  />
-                  <h4 class="title">{content.data.title}</h4>
+                  <HeroImage heroImage={content.heroImage} imageType="thumbnail" />
+                  <h4 class="title">{content.title}</h4>
                   <p class="date">
-                    <FormattedDate date={content.data.pubDate} />
+                    <FormattedDate date={content.publishedAt ?? content.updatedAt} />
                   </p>
-                  <Tags tags={content.data.tags} />
+                  <Tags tags={content.tags} />
                 </a>
               </li>
             ))

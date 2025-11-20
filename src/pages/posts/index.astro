@@ -1,0 +1,12 @@
+---
+import ContentIndex from '../../layouts/ContentIndex.astro';
+import { getBlogs } from '../../library/microcms';
+
+const posts = await getBlogs({
+  filters: 'category[contains]post',
+  fields: ['id', 'title', 'publishedAt', 'heroImage', 'tags', 'category'],
+  orders: '-publishedAt',
+});
+---
+
+<ContentIndex contents={posts.contents} description="なんか考えたこととかを記事にまとめてます。" />
