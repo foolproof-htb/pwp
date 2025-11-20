@@ -1,0 +1,21 @@
+---
+import type { Blog } from '../library/microcms';
+import { Image } from 'astro:assets';
+import defaultHeroImage from '../assets/default-hero-image.jpg';
+
+type Props = {
+  heroImage: Blog['heroImage'];
+};
+
+const { heroImage } = Astro.props;
+const url = heroImage?.url;
+const alt = heroImage?.alt ?? 'Hero Image';
+---
+
+{
+  heroImage ? (
+    <img class="thumbnail-image" src={url} alt={alt} loading="lazy" decoding="async" />
+  ) : (
+    <Image class="thumbnail-image" src={defaultHeroImage} alt={alt} />
+  )
+}
