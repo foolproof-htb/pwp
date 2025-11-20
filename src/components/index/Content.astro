@@ -10,9 +10,10 @@ type Props = {
 
 const { content } = Astro.props;
 const publishedDate = new Date(content.publishedAt ?? content.createdAt);
+const baseUrl = content.category[0] === 'impression' ? 'impressions' : 'posts';
 ---
 
-<a href={content.id}>
+<a href={`/${baseUrl}/${content.id}`}>
   <div class="post-row">
     <div class="thumbnail">
       <HeroImage heroImage={content.heroImage} />

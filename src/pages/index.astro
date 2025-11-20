@@ -7,7 +7,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { getBlogs } from '../library/microcms';
 
 const baseParams = {
-  fields: ['id', 'title', 'publishedAt', 'heroImage', 'tag'],
+  fields: ['id', 'title', 'publishedAt', 'heroImage', 'tags', 'category'],
   limit: 3,
   orders: '-publishedAt',
 };
