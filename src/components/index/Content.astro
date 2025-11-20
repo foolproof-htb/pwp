@@ -16,7 +16,7 @@ const baseUrl = content.category[0] === 'impression' ? 'impressions' : 'posts';
 <a href={`/${baseUrl}/${content.id}`}>
   <div class="post-row">
     <div class="thumbnail">
-      <HeroImage heroImage={content.heroImage} />
+      <HeroImage heroImage={content.heroImage} imageType="thumbnail" />
     </div>
 
     <div class="content">
@@ -44,12 +44,6 @@ const baseUrl = content.category[0] === 'impression' ? 'impressions' : 'posts';
     box-shadow: var(--box-shadow);
     overflow: hidden;
     transition: box-shadow 0.3s ease;
-  }
-  .thumbnail-image {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
   }
   .post-row .content {
     display: flex;
