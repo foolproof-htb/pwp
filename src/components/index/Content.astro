@@ -1,37 +1,29 @@
 ---
-import { Image } from 'astro:assets';
+import HeroImage from '../HeroImage.astro';
 import FormattedDate from '../FormattedDate.astro';
-import type { CollectionEntry } from 'astro:content';
 import Tags from '../Tags.astro';
-import defaultHeroImage from '../../assets/default-hero-image.jpg';
+import type { Blog } from '../../library/microcms';
 
 type Props = {
-  content: CollectionEntry<'post' | 'impression'>;
+  content: Blog;
 };
 
 const { content } = Astro.props;
-const baseUrl = content.collection === 'impression' ? 'impression' : 'post';
+const publishedDate = new Date(content.publishedAt ?? content.createdAt);
 ---
 
-<a href={`/${baseUrl}/${content.id}`}>
+<a href={content.id}>
   <div class="post-row">
     <div class="thumbnail">
-      <Image
-        class="thumbnail-image"
-        src={content.data.heroImage ?? defaultHeroImage}
-        alt=""
-        width={320}
-        height={213}
-        sizes="(max-width: 600px) 96px, 160px"
-      />
+      <HeroImage heroImage={content.heroImage} />
     </div>
 
     <div class="content">
       <p class="date">
-        <FormattedDate date={content.data.pubDate} />
+        <FormattedDate date={publishedDate} />
       </p>
-      <h3 class="title">{content.data.title}</h3>
-      <Tags tags={content.data.tags} />
+      <h3 class="title">{content.title}</h3>
+      <Tags tags={content.tag} />
     </div>
   </div>
 </a>
