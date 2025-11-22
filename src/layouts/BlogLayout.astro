@@ -53,10 +53,10 @@ const { pageTitle, heroImage } = Astro.props as Props;
     <Header />
     <main>
       <article>
-        <div class="hero-image">
-          <HeroImage heroImage={heroImage} imageType={'blog'} />
-        </div>
         <div class="prose">
+          <div class="hero-image">
+            <HeroImage heroImage={heroImage} imageType={'blog'} />
+          </div>
           <slot name="meta" />
           <slot />
         </div>
