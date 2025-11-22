@@ -15,6 +15,8 @@
     "@astrojs/rss": "^4.0.13",
     "@astrojs/sitemap": "^3.6.0",
     "astro": "^5.15.4",
+    "cheerio": "^1.1.2",
+    "highlight.js": "^11.11.1",
     "microcms-js-sdk": "^3.2.0",
     "preact": "^10.27.2",
     "rehype-external-links": "^3.0.0",
