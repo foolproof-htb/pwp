@@ -1,0 +1,79 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import HeroImage from '../components/HeroImage.astro';
+import type { Blog } from '../library/microcms';
+
+type Props = {
+  pageTitle: string;
+  heroImage?: Blog['heroImage'];
+};
+
+const { pageTitle, heroImage } = Astro.props as Props;
+---
+
+<html lang="ja">
+  <head>
+    <BaseHead title={pageTitle} />
+    <style>
+      main {
+        width: calc(100% - 2em);
+        max-width: 100%;
+        margin: 0;
+      }
+      .hero-image {
+        width: 100%;
+        height: auto;
+      }
+      .prose {
+        width: 720px;
+        max-width: calc(100% - 2em);
+        margin: auto;
+        padding: 1em;
+        color: rgb(var(--gray-dark));
+      }
+      .title {
+        margin-bottom: 1em;
+        padding: 1em 0;
+        line-height: 1;
+      }
+      .title h1 {
+        margin: 0 0 0.5em 0;
+      }
+      .date {
+        margin-bottom: 0.5em;
+        color: rgb(var(--gray));
+        text-align: right;
+      }
+    </style>
+  </head>
+
+  <body>
+    <Header />
+    <main>
+      <article>
+        <div class="prose">
+          <div class="hero-image">
+            <HeroImage heroImage={heroImage} imageType={'blog'} />
+          </div>
+          <slot name="meta" />
+          <slot />
+        </div>
+      </article>
+    </main>
+    <Footer />
+    <script>
+      document.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) {
+          return;
+        }
+        const spoiler = target.closest('.spoiler');
+        if (spoiler) {
+          document.body.classList.toggle('spoiler-revealed');
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -13,6 +13,7 @@
 
 - **Markdown**
 - **Astro Content Collections**
+- **microCMS**
 
 ### 開発ツール
 
