@@ -140,16 +140,9 @@ img {
   height: auto;
   border-radius: 16px;
 }
-code {
-  padding: 2px 6px;
-  background-color: rgba(var(--surface-strong), 0.7);
-  border-radius: 6px;
-  color: rgb(var(--black));
-}
 pre {
-  padding: 1.5em;
-  border-radius: 18px;
-  background: rgba(var(--surface-strong), 0.75);
+  padding: 1em;
+  border-radius: 8px;
   border: 1px solid rgba(var(--gray-light), 0.7);
   box-shadow: var(--box-shadow);
   width: 100%;
@@ -159,9 +152,10 @@ pre {
   white-space: pre;
   word-break: normal;
   -webkit-overflow-scrolling: touch;
-}
-pre > code {
-  all: unset;
+  font-size: 0.8em;
+  font-family:
+    'Menlo', Courier, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Noto Sans JP', 'BIZ UDGothic',
+    'Meiryo', monospace;
 }
 blockquote {
   border-left: 4px solid var(--accent);
