@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { getBlogDetail } from '../library/microcms';
 
-const Preview = () => {
+const PreviewContent = () => {
   const params = new URLSearchParams(window.location.search);
   const contentId = params.get('contentId');
   const draftKey = params.get('draftKey');
@@ -31,4 +31,4 @@ const Preview = () => {
   );
 };
 
-export default Preview;
+export default PreviewContent;
