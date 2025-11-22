@@ -1,5 +1,6 @@
 ---
 import ContentPage from '../../layouts/ContentPage.astro';
+import { applySyntaxHighlight } from '../../library/highlight';
 import { getBlogDetail, getBlogs } from '../../library/microcms';
 
 export async function getStaticPaths() {
@@ -14,8 +15,12 @@ export async function getStaticPaths() {
 
 const impressionId = Astro.params.blogId;
 const impression = await getBlogDetail(impressionId);
+const highlightedImpression = {
+  ...impression,
+  content: applySyntaxHighlight(impression.content),
+};
 ---
 
-<ContentPage {...impression}>
-  <div set:html={impression.content} />
+<ContentPage {...highlightedImpression}>
+  <div set:html={highlightedImpression.content} />
 </ContentPage>

@@ -1,5 +1,6 @@
 ---
 import ContentPage from '../../layouts/ContentPage.astro';
+import { applySyntaxHighlight } from '../../library/highlight';
 import { getBlogDetail, getBlogs } from '../../library/microcms';
 
 export async function getStaticPaths() {
@@ -14,8 +15,12 @@ export async function getStaticPaths() {
 
 const postId = Astro.params.blogId;
 const post = await getBlogDetail(postId);
+const highlightedPost = {
+  ...post,
+  content: applySyntaxHighlight(post.content),
+};
 ---
 
-<ContentPage {...post}>
-  <div set:html={post.content} />
+<ContentPage {...highlightedPost}>
+  <div set:html={highlightedPost.content} />
 </ContentPage>
