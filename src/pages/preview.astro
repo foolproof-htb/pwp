@@ -1,0 +1,10 @@
+---
+import PreviewContent from '../components/PreviewContent.tsx';
+import BlogLayout from '../layouts/BlogLayout.astro';
+---
+
+<BlogLayout pageTitle="プレビュー">
+  <div class="blog-content">
+    <PreviewContent client:only="preact" />
+  </div>
+</BlogLayout>
