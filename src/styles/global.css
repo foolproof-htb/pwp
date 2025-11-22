@@ -96,6 +96,10 @@ p {
 .prose p {
   margin-bottom: 2em;
 }
+.blog-content figure {
+  margin: 2em 0 0;
+  text-align: center;
+}
 .blog-content figcaption {
   display: block;
   font-size: 0.6em;
@@ -110,6 +114,9 @@ p {
   text-align: center;
   margin-top: 0.5em;
   line-height: 1.4;
+}
+p:has(span.caption) {
+  margin: 0;
 }
 .blog-content img {
   border-radius: 0%;
