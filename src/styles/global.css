@@ -117,6 +117,7 @@ p {
 }
 p:has(span.caption) {
   margin: 0;
+  text-align: center;
 }
 .blog-content img {
   border-radius: 0%;
