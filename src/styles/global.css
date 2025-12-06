@@ -179,9 +179,10 @@ blockquote {
   border-left: 4px solid var(--accent);
   padding: 0 0 0 20px;
   margin: 0px;
-  font-size: 1.333em;
   background: rgba(var(--accent-soft), 0.5);
   border-radius: 0 18px 18px 0;
+  color: rgb(var(--gray));
+  font-style: italic;
 }
 hr {
   border: none;
