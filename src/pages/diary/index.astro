@@ -1,0 +1,68 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import { getDiaries } from '../../library/microcms';
+
+const diary = await getDiaries({
+  fields: ['id', 'title', 'publishedAt'],
+  orders: '-publishedAt',
+});
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <style>
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      li a {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 0.75rem 0.5rem;
+        text-decoration: none;
+        color: inherit;
+        border-top: 1px solid rgb(var(--gray-light));
+      }
+      li:last-child a {
+        border-bottom: 1px solid rgb(var(--gray-light));
+      }
+      li a:hover {
+        background-color: rgb(var(--gray-light));
+      }
+      .date {
+        color: rgb(var(--gray));
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <p>たまに更新する日記。</p>
+      <ul>
+        {
+          diary.contents.map((entry) => (
+            <li>
+              <a href={`/diary/${entry.id}/`}>
+                <span class="date">
+                  <FormattedDate date={entry.publishedAt ?? entry.updatedAt} />
+                </span>
+                <span>{entry.title}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </main>
+    <Footer />
+  </body>
+</html>

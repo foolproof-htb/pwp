@@ -1,0 +1,61 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import 'highlight.js/styles/github-dark.css';
+import { applySyntaxHighlight } from '../../library/highlight';
+import { getDiaries, getDiaryDetail } from '../../library/microcms';
+
+export async function getStaticPaths() {
+  const diary = await getDiaries({
+    fields: ['id'],
+  });
+  return diary.contents.map((entry) => ({
+    params: { blogId: entry.id },
+  }));
+}
+
+const entryId = Astro.params.blogId;
+const entry = await getDiaryDetail(entryId);
+const date = entry.publishedAt ?? entry.updatedAt;
+const content = applySyntaxHighlight(entry.content);
+---
+
+<html lang="ja">
+  <head>
+    <BaseHead title={entry.title} />
+    <style>
+      main {
+        width: calc(100% - 2em);
+        max-width: 100%;
+        margin: 0;
+      }
+      .prose {
+        width: 720px;
+        max-width: calc(100% - 2em);
+        margin: auto;
+        padding: 1em;
+        color: rgb(var(--gray-dark));
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <article>
+        <div class="prose">
+          <div class="title">
+            <FormattedDate date={date} />
+            {entry.title}
+            <hr />
+          </div>
+          <div class="blog-content">
+            <div set:html={content} />
+          </div>
+        </div>
+      </article>
+    </main>
+    <Footer />
+  </body>
+</html>

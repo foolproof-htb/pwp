@@ -38,3 +38,20 @@ export const getBlogDetail = async (contentId: string, queries?: MicroCMSQueries
     queries,
   });
 };
+
+export type Diary = {
+  title: string;
+  content: string;
+} & MicroCMSListContent;
+
+export const getDiaries = async (queries?: MicroCMSQueries) => {
+  return await client.getList<Diary>({ endpoint: 'diary', queries });
+};
+
+export const getDiaryDetail = async (contentId: string, queries?: MicroCMSQueries) => {
+  return await client.getListDetail<Diary>({
+    endpoint: 'diary',
+    contentId,
+    queries,
+  });
+};
