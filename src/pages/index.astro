@@ -2,7 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import Content from '../components/index/Content.astro';
+import ContentCard from '../components/ContentCard.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { getBlogs } from '../library/microcms';
 
@@ -26,43 +26,102 @@ const latestImpressions = impressionRes.contents;
   <body>
     <Header />
     <main>
-      <div class="intro">
-        <p>個人の記録を残すサイトです。</p>
-        <p>なんか考えたこととか触れたコンテンツとかについて、書きたくなったら書きます。</p>
-      </div>
-      <div class="latest-posts">
-        <h2>直近の記事</h2>
+      <section class="hero">
+        <h1 class="hero-title">{SITE_TITLE}</h1>
+        <p class="hero-lead">個人の記録を残すサイトです。</p>
+        <p class="hero-sub">
+          なんか考えたこととか触れたコンテンツとかについて、書きたくなったら書きます。
+        </p>
+      </section>
+
+      <section class="latest">
+        <div class="section-head">
+          <h2>直近の記事</h2>
+          <a class="more" href="/posts">その他の記事を読む →</a>
+        </div>
         <ul>
-          {latestBlogs.map((post) => <Content content={post} />)}
+          {latestBlogs.map((post) => (
+            <li>
+              <ContentCard content={post} />
+            </li>
+          ))}
         </ul>
-        <a href="/posts">その他の記事を読む</a>
-      </div>
-      <div class="latest-impressions">
-        <h2>直近の感想</h2>
+      </section>
+
+      <section class="latest">
+        <div class="section-head">
+          <h2>直近の感想</h2>
+          <a class="more" href="/impressions">その他の感想を読む →</a>
+        </div>
         <ul>
-          {latestImpressions.map((impression) => <Content content={impression} />)}
+          {latestImpressions.map((impression) => (
+            <li>
+              <ContentCard content={impression} />
+            </li>
+          ))}
         </ul>
-        <a href="/impressions">その他の感想を読む</a>
-      </div>
+      </section>
     </main>
     <Footer />
   </body>
 </html>
 
 <style>
+  main {
+    width: 960px;
+  }
+  .hero {
+    margin: 1em 0 4em;
+    padding: 0 0 2.5em;
+    border-bottom: 1px solid rgb(var(--gray-light));
+  }
+  .hero-title {
+    margin: 0 0 0.5rem;
+    font-size: clamp(2rem, 6vw, 2.75rem);
+    letter-spacing: 0.02em;
+  }
+  .hero-lead {
+    margin: 0 0 0.25em;
+    color: rgb(var(--gray-dark));
+    font-size: 1.05rem;
+  }
+  .hero-sub {
+    margin: 0;
+    color: rgb(var(--gray));
+    font-size: 0.95rem;
+  }
+  .latest {
+    margin-bottom: 4em;
+  }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5em;
+  }
+  .section-head h2 {
+    margin: 0;
+    font-size: 1.4em;
+  }
+  .more {
+    flex-shrink: 0;
+    font-size: 0.9rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
   ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem 1.5rem;
   }
-  .intro {
-    margin: 0 auto 4em auto;
-    padding: 1em;
-    color: rgb(var(--gray-dark));
-    line-height: 1.6;
-  }
-  .latest-posts,
-  .latest-impressions {
-    margin-bottom: 4em;
+  @media (max-width: 720px) {
+    ul {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
   }
 </style>

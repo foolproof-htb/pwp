@@ -38,46 +38,35 @@ import HeaderLink from './HeaderLink.astro';
 <style>
   header {
     margin: 0;
-    padding: 0 1em;
-    background: rgba(var(--surface), 0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(var(--gray-light), 0.8);
-    box-shadow: 0 12px 24px rgba(46, 122, 84, 0.08);
-  }
-  h2 {
-    margin: 0;
-    font-size: 1em;
-  }
-
-  h2 a,
-  h2 a.active {
-    text-decoration: none;
+    padding: 0 1.5em;
+    background: rgb(var(--bg));
+    border-bottom: 1px solid rgb(var(--gray-light));
   }
   nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    max-width: 960px;
+    margin: 0 auto;
   }
-  nav a {
-    padding: 1em 0.5em;
-    color: rgb(var(--gray-dark));
-    border-bottom: 4px solid transparent;
+  h2.site-title {
+    margin: 0;
+    margin-right: auto;
+    font-size: 1.25em;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  h2.site-title a {
+    color: rgb(var(--black));
     text-decoration: none;
-    transition:
-      color 200ms ease,
-      border-bottom-color 200ms ease;
+  }
+  h2.site-title a:hover {
+    color: var(--accent-dark);
   }
   .internal-links {
     display: flex;
-    gap: 0.25em;
-  }
-  nav a:hover {
-    color: var(--accent-dark);
-  }
-  nav a.active {
-    text-decoration: none;
-    border-bottom-color: var(--accent);
-    color: var(--accent-dark);
+    gap: 0.5em;
+    margin: 0 1.5em;
   }
   .social-links,
   .social-links a {
@@ -91,6 +80,9 @@ import HeaderLink from './HeaderLink.astro';
     color: var(--accent-dark);
   }
   @media (max-width: 720px) {
+    header {
+      padding: 0 0.75em;
+    }
     .social-links {
       display: none;
     }
@@ -100,14 +92,16 @@ import HeaderLink from './HeaderLink.astro';
       gap: 0.25em;
     }
     h2.site-title {
-      margin-top: 2rem;
+      margin: 0.75rem 0 0;
       width: 100%;
       text-align: center;
     }
     .internal-links {
       width: 100%;
+      margin: 0;
+      gap: 0.1em;
       justify-content: center;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
     }
   }
 </style>
