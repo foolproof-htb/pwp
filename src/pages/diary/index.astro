@@ -17,6 +17,10 @@ const diary = await getDiaries({
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
     <style>
+      .lead {
+        margin: 0 0 2.5em;
+        color: rgb(var(--gray));
+      }
       ul {
         list-style: none;
         margin: 0;
@@ -26,28 +30,34 @@ const diary = await getDiaries({
         display: flex;
         align-items: center;
         gap: 1.5rem;
-        padding: 0.75rem 0.5rem;
+        padding: 0.9rem 0.75rem;
         text-decoration: none;
-        color: inherit;
+        color: rgb(var(--gray-dark));
         border-top: 1px solid rgb(var(--gray-light));
+        border-radius: var(--radius-sm);
+        transition:
+          background-color 200ms ease,
+          color 200ms ease;
       }
       li:last-child a {
         border-bottom: 1px solid rgb(var(--gray-light));
       }
       li a:hover {
-        background-color: rgb(var(--gray-light));
+        background-color: rgb(var(--bg-soft));
+        color: var(--accent-dark);
       }
       .date {
         color: rgb(var(--gray));
         white-space: nowrap;
         flex-shrink: 0;
+        font-size: 0.85rem;
       }
     </style>
   </head>
   <body>
     <Header />
     <main>
-      <p>たまに更新する日記。</p>
+      <p class="lead">たまに更新する日記。</p>
       <ul>
         {
           diary.contents.map((entry) => (

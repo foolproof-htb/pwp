@@ -1,49 +1,48 @@
 /*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
+  グローバルスタイル。
+  デザイントークンは :root に集約し、緑は差し色（accent）に限定、
+  テキスト/サーフェスはニュートラルなグレースケールで構成する。
  */
 
 :root {
-  --accent: #55b487;
-  --accent-dark: #2e7a54;
-  --accent-soft: #d6f2e2;
-  --black: 24, 36, 32;
-  --gray: 90, 118, 102;
-  --gray-light: 214, 232, 221;
-  --gray-dark: 42, 62, 52;
-  --surface: 245, 252, 247;
-  --surface-soft: 232, 245, 236;
-  --surface-strong: 209, 231, 218;
-  --box-shadow: 0 10px 30px rgba(40, 84, 63, 0.08), 0 18px 60px rgba(40, 84, 63, 0.06);
-}
-@font-face {
-  font-family: 'Atkinson';
-  src: url('/fonts/atkinson-regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Atkinson';
-  src: url('/fonts/atkinson-bold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
+  /* 差し色（緑）— リンク・アクティブ・強調にのみ使う */
+  --accent: #1f9e6c;
+  --accent-dark: #15774e;
+  --accent-soft: 230, 244, 236; /* 極薄の緑。rgba(var(--accent-soft), x) で使う */
+
+  /* テキスト（ニュートラル） */
+  --black: 26, 28, 30; /* 見出し・強調 */
+  --gray-dark: 56, 60, 62; /* 本文 */
+  --gray: 122, 128, 130; /* 日付・メタ */
+
+  /* サーフェス／罫線（ニュートラル） */
+  --bg: 255, 255, 255;
+  --bg-soft: 247, 248, 247; /* カード・コード背景 */
+  --gray-light: 232, 233, 232; /* 罫線・タグ背景 */
+  --surface: 255, 255, 255;
+  --surface-soft: 248, 249, 248;
+  --surface-strong: 240, 241, 240;
+
+  /* 角丸（1系統に統一） */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+
+  /* 影（控えめだが効く） */
+  --box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Meiryo', sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Hiragino Sans',
+    'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif;
   margin: 0;
   padding: 0;
   text-align: left;
-  background:
-    radial-gradient(120% 80% at 10% 0%, rgba(var(--surface-soft), 0.9), transparent 65%),
-    linear-gradient(180deg, rgba(var(--surface), 1) 0%, #ffffff 60%);
+  background: rgb(var(--bg));
   word-wrap: break-word;
   overflow-wrap: break-word;
   color: rgb(var(--gray-dark));
-  font-size: 20px;
-  line-height: 1.7;
+  font-size: 18px;
+  line-height: 1.8;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -63,20 +62,20 @@ h5,
 h6 {
   margin: 1rem 0;
   color: rgb(var(--black));
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  line-height: 1.4;
+  font-weight: 700;
 }
 h1 {
-  font-size: 2.5em;
+  font-size: 2.25em;
 }
 h2 {
-  font-size: 2em;
+  font-size: 1.75em;
 }
 h3 {
-  font-size: 1.5em;
+  font-size: 1.4em;
 }
 h4 {
-  font-size: 1.25em;
+  font-size: 1.2em;
 }
 h5 {
   font-size: 1em;
@@ -108,7 +107,7 @@ p {
 .prose .title {
   margin-bottom: 1em;
   padding: 1em 0;
-  line-height: 1;
+  line-height: 1.2;
 }
 .blog-content figure {
   margin: 2em 0 0;
@@ -117,14 +116,14 @@ p {
 .blog-content figcaption {
   display: block;
   font-size: 0.6em;
-  color: #777;
+  color: rgb(var(--gray));
   text-align: center;
   margin-top: 0.25em;
 }
 /* microCMS側で .caption が付与される想定 */
 .blog-content .caption {
   font-size: 0.75em;
-  color: #f90;
+  color: rgb(var(--gray));
   text-align: center;
   margin-top: 0.5em;
   line-height: 1.4;
@@ -134,7 +133,7 @@ p:has(span.caption) {
   text-align: center;
 }
 .blog-content img {
-  border-radius: 0%;
+  border-radius: var(--radius-md);
 }
 /* microCMS側で .spoiler が付与される想定 */
 .blog-content .spoiler {
@@ -160,13 +159,12 @@ table {
 img {
   max-width: 100%;
   height: auto;
-  border-radius: 16px;
+  border-radius: var(--radius-md);
 }
 pre {
   padding: 1em;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   border: 1px solid rgba(var(--gray-light), 0.7);
-  box-shadow: var(--box-shadow);
   width: 100%;
   box-sizing: border-box;
   overflow-x: auto;
@@ -180,21 +178,23 @@ pre {
     'Meiryo', monospace;
 }
 blockquote {
-  border-left: 4px solid var(--accent);
-  padding: 0 0 0 20px;
-  margin: 0px;
-  background: rgba(var(--accent-soft), 0.5);
-  border-radius: 0 18px 18px 0;
-  color: rgb(var(--gray));
-  font-style: italic;
+  border-left: 3px solid var(--accent);
+  padding: 0.5em 0 0.5em 1.25em;
+  margin: 0;
+  background: rgba(var(--accent-soft), 0.6);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: rgb(var(--gray-dark));
+}
+blockquote p:last-child {
+  margin-bottom: 0;
 }
 hr {
   border: none;
-  border-top: 1px solid rgba(var(--gray), 0.2);
+  border-top: 1px solid rgb(var(--gray-light));
 }
 @media (max-width: 720px) {
   body {
-    font-size: 18px;
+    font-size: 17px;
   }
   main {
     padding: 1em;

@@ -1,0 +1,64 @@
+---
+import HeroImage from './HeroImage.astro';
+import FormattedDate from './FormattedDate.astro';
+import Tags from './Tags.astro';
+import type { Blog } from '../library/microcms';
+
+type Props = {
+  content: Blog;
+};
+
+const { content } = Astro.props;
+const publishedDate = new Date(content.publishedAt ?? content.createdAt);
+const baseUrl = content.category[0] === 'impression' ? 'impressions' : 'posts';
+---
+
+<a class="card" href={`/${baseUrl}/${content.id}/`}>
+  <div class="thumbnail">
+    <HeroImage heroImage={content.heroImage} imageType="thumbnail" />
+  </div>
+  <div class="body">
+    <p class="date">
+      <FormattedDate date={publishedDate} />
+    </p>
+    <h3 class="title">{content.title}</h3>
+    <Tags tags={content.tags} />
+  </div>
+</a>
+
+<style>
+  .card {
+    display: block;
+    text-decoration: none;
+  }
+  .thumbnail {
+    aspect-ratio: 3 / 2;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    transition:
+      transform 200ms ease,
+      box-shadow 200ms ease;
+  }
+  .card:hover .thumbnail {
+    transform: translateY(-2px);
+  }
+  .body {
+    padding-top: 0.85rem;
+  }
+  .date {
+    margin: 0 0 0.2rem;
+    color: rgb(var(--gray));
+    font-size: 0.85rem;
+  }
+  .title {
+    margin: 0;
+    color: rgb(var(--black));
+    line-height: 1.45;
+    font-size: 1.2rem;
+    transition: color 200ms ease;
+  }
+  .card:hover .title {
+    color: var(--accent-dark);
+  }
+</style>
