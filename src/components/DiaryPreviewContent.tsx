@@ -1,7 +1,7 @@
 import hljs from 'highlight.js';
 import { useEffect, useRef } from 'preact/hooks';
 import useSWR from 'swr';
-import { getDiaryDetail } from '../library/microcms';
+import { getDiaryDate, getDiaryDetail } from '../library/microcms';
 
 const DiaryPreviewContent = () => {
   const contentRef = useRef<HTMLDivElement | null>(null);
@@ -53,7 +53,7 @@ const DiaryPreviewContent = () => {
       <div>
         <div class="title">
           <div class="date">
-            投稿日：{new Date(data.publishedAt ?? data.createdAt).toLocaleDateString()}
+            {data.date ? '日付' : '投稿日'}：{new Date(getDiaryDate(data)).toLocaleDateString()}
           </div>
           <h1 class="post-title">{data.title}</h1>
           <hr />

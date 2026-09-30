@@ -13,6 +13,8 @@ const parsedDate = typeof date === 'string' ? new Date(date) : date;
       year: 'numeric',
       month: 'short',
       day: 'numeric',
+      // ビルド環境（Cloudflare Pages）は UTC で動くため、日本時間を明示する
+      timeZone: 'Asia/Tokyo',
     })
   }
 </time>

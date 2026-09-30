@@ -1,0 +1,144 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import { getAllDiaries, getDiaryDate, type Diary } from '../../library/microcms';
+
+// 1ページ目は /diary/、2ページ目以降は /diary/page/N/ に置く。
+// /diary/N/ にすると記事の /diary/[blogId]/ と同じ階層になり、ID と衝突しうるため。
+export async function getStaticPaths() {
+  const PAGE_SIZE = 20;
+  // microCMS は「date があれば date、なければ publishedAt」で並べられないため、全件取ってから並べ替える
+  const diary = (
+    await getAllDiaries({
+      fields: ['id', 'title', 'date', 'publishedAt', 'updatedAt'],
+    })
+  ).sort((a, b) => Date.parse(getDiaryDate(b)) - Date.parse(getDiaryDate(a)));
+  const lastPage = Math.max(1, Math.ceil(diary.length / PAGE_SIZE));
+  return Array.from({ length: lastPage }, (_, i) => ({
+    params: { page: i === 0 ? undefined : `page/${i + 1}` },
+    props: {
+      entries: diary.slice(i * PAGE_SIZE, (i + 1) * PAGE_SIZE),
+      currentPage: i + 1,
+      lastPage,
+    },
+  }));
+}
+
+type Props = {
+  entries: Diary[];
+  currentPage: number;
+  lastPage: number;
+};
+
+const { entries, currentPage, lastPage } = Astro.props;
+const pageUrl = (n: number) => (n === 1 ? '/diary/' : `/diary/page/${n}/`);
+const prevUrl = currentPage > 1 ? pageUrl(currentPage - 1) : undefined;
+const nextUrl = currentPage < lastPage ? pageUrl(currentPage + 1) : undefined;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <style>
+      .lead {
+        margin: 0 0 2.5em;
+        color: rgb(var(--gray));
+      }
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      li a {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 0.9rem 0.75rem;
+        text-decoration: none;
+        color: rgb(var(--gray-dark));
+        border-top: 1px solid rgb(var(--gray-light));
+        border-radius: var(--radius-sm);
+        transition:
+          background-color 200ms ease,
+          color 200ms ease;
+      }
+      li:last-child a {
+        border-bottom: 1px solid rgb(var(--gray-light));
+      }
+      li a:hover {
+        background-color: rgb(var(--bg-soft));
+        color: var(--accent-dark);
+      }
+      .date {
+        color: rgb(var(--gray));
+        white-space: nowrap;
+        flex-shrink: 0;
+        font-size: 0.85rem;
+      }
+      .pagination {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 2em;
+        font-size: 0.9rem;
+      }
+      .pagination a {
+        color: var(--accent-dark);
+        text-decoration: none;
+      }
+      .pagination a:hover {
+        text-decoration: underline;
+      }
+      .pagination .current {
+        color: rgb(var(--gray));
+      }
+      .pagination .placeholder {
+        visibility: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <p class="lead">たまに更新する日記。</p>
+      <ul>
+        {
+          entries.map((entry) => (
+            <li>
+              <a href={`/diary/${entry.id}/`}>
+                <span class="date">
+                  <FormattedDate date={getDiaryDate(entry)} />
+                </span>
+                <span>{entry.title}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      {
+        lastPage > 1 && (
+          <nav class="pagination" aria-label="ページ送り">
+            {prevUrl ? (
+              <a href={prevUrl}>← 新しい日記</a>
+            ) : (
+              <span class="placeholder">← 新しい日記</span>
+            )}
+            <span class="current">
+              {currentPage} / {lastPage}
+            </span>
+            {nextUrl ? (
+              <a href={nextUrl}>古い日記 →</a>
+            ) : (
+              <span class="placeholder">古い日記 →</span>
+            )}
+          </nav>
+        )
+      }
+    </main>
+    <Footer />
+  </body>
+</html>
