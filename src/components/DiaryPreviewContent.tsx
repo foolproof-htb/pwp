@@ -53,7 +53,7 @@ const DiaryPreviewContent = () => {
       <div>
         <div class="title">
           <div class="date">
-            {data.date ? '日付' : '投稿日'}：{new Date(getDiaryDate(data)).toLocaleDateString()}
+            投稿日：{new Date(getDiaryDate(data)).toLocaleDateString()}
           </div>
           <h1 class="post-title">{data.title}</h1>
           <hr />
