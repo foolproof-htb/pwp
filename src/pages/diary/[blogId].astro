@@ -5,20 +5,20 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import 'highlight.js/styles/github-dark.css';
 import { applySyntaxHighlight } from '../../library/highlight';
-import { getDiaries, getDiaryDetail } from '../../library/microcms';
+import { getAllDiaries, getDiaryDate, getDiaryDetail } from '../../library/microcms';
 
 export async function getStaticPaths() {
-  const diary = await getDiaries({
+  const diary = await getAllDiaries({
     fields: ['id'],
   });
-  return diary.contents.map((entry) => ({
+  return diary.map((entry) => ({
     params: { blogId: entry.id },
   }));
 }
 
 const entryId = Astro.params.blogId;
 const entry = await getDiaryDetail(entryId);
-const date = entry.publishedAt ?? entry.updatedAt;
+const date = getDiaryDate(entry);
 const content = applySyntaxHighlight(entry.content);
 ---
 
